@@ -8,7 +8,16 @@ function createTable({ width, height }) {
   return { width, height };
 }
 
+function generateCanvas(table) {
+  if (!areValidDimension(table)) throw new Error('Dimensions of table are not valid.');
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('width', table.width);
+  canvas.setAttribute('height', table.height);
+  return canvas;
+}
+
+
 export default {
-  areValidDimension,
-  createTable
+  createTable,
+  generateCanvas
 }
