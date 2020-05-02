@@ -28,9 +28,7 @@ describe('tableService', () => {
 
     test('Given a table with dimension not valid, should throw a error', () => {
       const table = { width: 0, height: -1 };
-      expect(() => {
-        tableService.generateCanvas(table);
-      }).toThrow();
+      expect(() => tableService.generateCanvas(table)).toThrow();
     });
 
     // Integrations:
