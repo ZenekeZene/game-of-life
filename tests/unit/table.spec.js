@@ -1,4 +1,6 @@
 import tableService from '../../src/services/table.service';
+import { mount } from '@vue/test-utils'
+import Table from '@/components/Table.vue';
 
 describe('tableService', () => {
   describe('createTable({ width, height })', () => {
@@ -16,14 +18,14 @@ describe('tableService', () => {
   });
 
   describe('generateCanvas(table)', () => {
-    const _isCanvasElement = (element) => element.tagName === 'CANVAS';
-    const _isCanvasWithSize = (element, { width, height }) => element.getAttribute('width') === width.toString() && element.getAttribute('height') === height.toString();
+    const isCanvasElement = (element) => element.tagName === 'CANVAS';
+    const isCanvasWithSize = (element, { width, height }) => element.getAttribute('width') === width.toString() && element.getAttribute('height') === height.toString();
 
     test('Given a table with dimensions 5x5, should return a canvas element with these size', () => {
       const table = { width: 5, height: 5 };
       const actual = tableService.generateCanvas(table);
-      expect(_isCanvasElement(actual)).toBe(true);
-      expect(_isCanvasWithSize(actual, table));
+      expect(isCanvasElement(actual)).toBe(true);
+      expect(isCanvasWithSize(actual, table));
     });
 
     test('Given a table with dimension not valid, should throw a error', () => {
@@ -32,12 +34,26 @@ describe('tableService', () => {
     });
 
     // Integrations:
-    test('Given a table with dimensions valid, should return a canvas elementh with these size (integration)', () => {
+    test('Given a table with dimensions valid, should return a canvas element with these size (integration)', () => {
       const table = tableService.createTable({ width: 5, height: 5 });
       const actual = tableService.generateCanvas(table);
-      expect(_isCanvasElement(actual)).toBe(true);
-      expect(_isCanvasWithSize(actual, table));
+      expect(isCanvasElement(actual)).toBe(true);
+      expect(isCanvasWithSize(actual, table));
     });
   });
+});
 
+describe('<Table />', () => {
+  it('Given a pair of dimension, should render a canvas correctly', () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        width: 25,
+        height: 25
+      }
+    });
+    const canvas = wrapper.get('.canvas');
+    expect(canvas)
+    expect(canvas.attributes('width')).toBe('25');
+    expect(canvas.attributes('height')).toBe('25');
+  });
 });

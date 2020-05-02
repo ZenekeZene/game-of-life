@@ -19,5 +19,5 @@ function generateCanvas(table) {
 
 export default {
   createTable,
-  generateCanvas
-}
+  generateCanvas,
+};
