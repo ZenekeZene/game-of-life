@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <Table/>
+    <TableItem :table="table" />
   </div>
 </template>
 
 <script>
-import Table from '@/components/Table';
+import TableItem from '@/components/Table.vue';
+import tableService from './services/table.service';
 
 export default {
   name: 'App',
   components: {
-    Table,
+    TableItem,
   },
+  data() {
+    return {
+      table: tableService.createTable({ width: 500, height: 500 }),
+    };
+  },
+
 };
 </script>
 
