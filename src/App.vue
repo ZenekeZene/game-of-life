@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TableItem :table="table" />
+    <TableItem v-if="table" :table="table" />
   </div>
 </template>
 

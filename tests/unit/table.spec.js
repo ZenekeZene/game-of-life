@@ -4,16 +4,21 @@ import Table from '@/components/Table.vue';
 
 describe('tableService', () => {
   describe('createTable({ width, height })', () => {
-    test('Given a width 50 and height 50, should return a table with these dimensions', () => {
+    it('Given a width 50 and height 50, should return a table with these dimensions', () => {
       const dimension = { width: 50, height: 50 };
       const actual = tableService.createTable(dimension);
-      expect(actual).toStrictEqual({ width: dimension.width, height: dimension.height });
+      expect(actual).toMatchObject({ width: dimension.width, height: dimension.height });
     });
 
-    test('Given a width not a number and/or height not a number, should return an null', () => {
+    it('Given a width not a number and/or height not a number, should return an null', () => {
       const dimension = { width: 'a', height: 50 };
       const actual = tableService.createTable(dimension);
       expect(actual).toBeNull();
+    });
+
+    it('Given a width of 5 and height of 5, should return a table with 25 cells', () => {
+      const { totalCells } = tableService.createTable({ width: 5, height: 5 });
+      expect(totalCells).toEqual(25);
     });
   });
 });
@@ -44,7 +49,7 @@ describe('<Table />', () => {
   });
 
   it('Given a invalid dimension, should not render a canvas', () => {
-    const table = tableService.createTable({ width: 'a', height: -1 });
+    const table = tableService.createTable({ width: 150 });
     const canvas = getCanvas(table);
     expect(canvas.exists()).toBe(false);
   });
