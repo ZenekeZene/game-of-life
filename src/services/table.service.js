@@ -1,12 +1,22 @@
+const pixelSize = 20;
+
 function areValidDimension(width, height) {
   if (!width || !height) return false;
   if (!Number.isInteger(width) || !Number.isInteger(height)) return false;
-  return (width > 0 && height > 0);
+  return (width % pixelSize === 0 && height % pixelSize === 0);
 }
 
 function createTable({ width, height }) {
   if (!areValidDimension(width, height)) return null;
-  return { width, height, totalCells: width * height };
+  const nxC = width / pixelSize;
+  const nyC = height / pixelSize;
+  return {
+    width,
+    height,
+    nxC,
+    nyC,
+    totalCells: nxC * nyC,
+  };
 }
 
 export default {

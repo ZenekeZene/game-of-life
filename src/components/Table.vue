@@ -20,18 +20,40 @@ export default {
       default: () => {},
     },
   },
+  data() {
+    return {
+      ctx: null,
+      state: [],
+    };
+  },
   mounted() {
-    this.fillBackground();
+    const { canvas } = this.$refs;
+    if (!canvas) return;
+    this.fillBackground(canvas);
+    this.initState();
   },
   methods: {
-    fillBackground() {
-      const { canvas } = this.$refs;
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, this.table.width, this.table.height);
-    }
-  }
+    fillBackground(canvas) {
+      this.ctx = canvas.getContext('2d');
+      if (!this.ctx) return;
+      this.ctx.fillStyle = '#000000';
+      this.ctx.fillRect(0, 0, this.table.width, this.table.height);
+      this.drawGrid();
+    },
+    drawGrid() {
+      for (let y = 0; y < this.table.nyC; y += 1) {
+        for (let x = 0; x < this.table.nxC; x += 1) {
+          this.ctx.strokeStyle = '#656565';
+          const xx = 0 + (this.pixelSize * x);
+          const yy = 0 + (this.pixelSize * y);
+          this.ctx.strokeRect(0 + xx, 0 + yy, this.pixelSize, this.pixelSize);
+        }
+      }
+    },
+    initState() {
+      this.state = new Array(this.table.nxC);
+      this.state.fill(0);
+    },
+  },
 };
 </script>

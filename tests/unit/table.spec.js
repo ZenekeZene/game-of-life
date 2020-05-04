@@ -1,11 +1,12 @@
 import tableService from '../../src/services/table.service';
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import Vue from 'vue';
 import Table from '@/components/Table.vue';
 
 describe('tableService', () => {
   describe('createTable({ width, height })', () => {
-    it('Given a width 50 and height 50, should return a table with these dimensions', () => {
-      const dimension = { width: 50, height: 50 };
+    it('Given a width 60 and height 60, should return a table with these dimensions', () => {
+      const dimension = { width: 60, height: 60 };
       const actual = tableService.createTable(dimension);
       expect(actual).toMatchObject({ width: dimension.width, height: dimension.height });
     });
@@ -16,9 +17,14 @@ describe('tableService', () => {
       expect(actual).toBeNull();
     });
 
-    it('Given a width of 5 and height of 5, should return a table with 25 cells', () => {
-      const { totalCells } = tableService.createTable({ width: 5, height: 5 });
-      expect(totalCells).toEqual(25);
+    it('Given a width of 500 and height of 500, should return a table with 625 cells', () => {
+      const { totalCells } = tableService.createTable({ width: 500, height: 500 });
+      expect(totalCells).toEqual(625);
+    });
+
+    it('Given a width of 500, should return a num of cells on axis x -> 25', () => {
+      const { nxC } = tableService.createTable({ width: 500, height: 500 });
+      expect(nxC).toEqual(25);
     });
   });
 });
@@ -28,11 +34,13 @@ describe('<Table />', () => {
     canvas.attributes('width') === table.width.toString() &&
     canvas.attributes('height') === table.height.toString();
 
-  const getCanvas = (table) => mount(Table, {
+  const build = (table) => shallowMount(Table, {
     propsData: {
       table
     }
-  }).find('.canvas');
+  });
+
+  const getCanvas = (table) => build(table).find('.canvas');
 
   it('Given a pair of dimension, should render a canvas correctly', () => {
     const dummyTable = { width: 25, height: 25 };
@@ -41,8 +49,8 @@ describe('<Table />', () => {
     expect(sizeIsCorrect(dummyTable, canvas)).toBe(true);
   });
 
-  it('Given a pair of dimension, should render a canvas correctly (integration)', () => {
-    const table = tableService.createTable({ width: 25, height: 25 });
+  it('Given a pair of dimension (40x40), should render a canvas correctly (integration)', () => {
+    const table = tableService.createTable({ width: 40, height: 40 });
     const canvas = getCanvas(table);
     expect(canvas)
     expect(sizeIsCorrect(table, canvas)).toBe(true);
@@ -52,6 +60,17 @@ describe('<Table />', () => {
     const table = tableService.createTable({ width: 150 });
     const canvas = getCanvas(table);
     expect(canvas.exists()).toBe(false);
+  });
+
+  it('It begin with all zeros', async () => {
+    const table = tableService.createTable({ width: 100, height: 100 });
+    const instance = shallowMount(Table, {
+      propsData: {
+        table
+      }
+    });
+    await Vue.nextTick()
+    expect(instance.vm.state).toEqual([0, 0, 0, 0, 0]);
   });
 
   // it('Given a canvas mounted, should be filled his size with color')
