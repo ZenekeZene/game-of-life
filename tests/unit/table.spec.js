@@ -1,6 +1,5 @@
 import tableService from '../../src/services/table.service';
 import { shallowMount } from '@vue/test-utils'
-import Vue from 'vue';
 import Table from '@/components/Table.vue';
 
 describe('tableService', () => {
@@ -64,12 +63,7 @@ describe('<Table />', () => {
 
   it('It begin with all zeros', async () => {
     const table = tableService.createTable({ width: 100, height: 100 });
-    const instance = shallowMount(Table, {
-      propsData: {
-        table
-      }
-    });
-    await Vue.nextTick()
+    const instance = build(table);
     expect(instance.vm.state).toEqual([0, 0, 0, 0, 0]);
   });
 
