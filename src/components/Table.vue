@@ -44,9 +44,9 @@ export default {
       for (let y = 0; y < this.table.nyC; y += 1) {
         for (let x = 0; x < this.table.nxC; x += 1) {
           this.ctx.strokeStyle = '#656565';
-          const xx = 0 + (this.pixelSize * x);
-          const yy = 0 + (this.pixelSize * y);
-          this.ctx.strokeRect(0 + xx, 0 + yy, this.pixelSize, this.pixelSize);
+          const xx = 0 + (this.table.pixelSize * x);
+          const yy = 0 + (this.table.pixelSize * y);
+          this.ctx.strokeRect(0 + xx, 0 + yy, this.table.pixelSize, this.table.pixelSize);
         }
       }
     },

@@ -15,6 +15,7 @@ function createTable({ width, height }) {
     height,
     nxC,
     nyC,
+    pixelSize: 20,
     totalCells: nxC * nyC,
   };
 }
