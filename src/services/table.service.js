@@ -1,23 +1,24 @@
-const pixelSize = 20;
+class Table {
+  static cellSize = 20;
+
+  constructor({ numCols, numRows }) {
+    this.width = numCols * Table.cellSize;
+    this.height = numRows * Table.cellSize;
+    this.numCols = numCols;
+    this.numRows = numRows;
+    this.totalCells = this.numCols * this.numRows;
+  }
+}
 
 function areValidDimension(width, height) {
   if (!width || !height) return false;
   if (!Number.isInteger(width) || !Number.isInteger(height)) return false;
-  return (width % pixelSize === 0 && height % pixelSize === 0);
+  return (width % Table.cellSize === 0 && height % Table.cellSize === 0);
 }
 
 function createTable({ width, height }) {
   if (!areValidDimension(width, height)) return null;
-  const nxC = width / pixelSize;
-  const nyC = height / pixelSize;
-  return {
-    width,
-    height,
-    nxC,
-    nyC,
-    pixelSize: 20,
-    totalCells: nxC * nyC,
-  };
+  return new Table({ width, height });
 }
 
 export default {
