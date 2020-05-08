@@ -1,24 +1,25 @@
 class Table {
-  static cellSize = 20;
+  static defaultCellSize = 20;
 
-  constructor({ numCols, numRows }) {
-    this.width = numCols * Table.cellSize;
-    this.height = numRows * Table.cellSize;
+  constructor({ numCols, numRows }, { cellSize }) {
+    this.width = numCols * cellSize;
+    this.height = numRows * cellSize;
     this.numCols = numCols;
     this.numRows = numRows;
     this.totalCells = this.numCols * this.numRows;
+    this.cellSize = cellSize;
   }
 }
 
-function areValidDimension(width, height) {
-  if (!width || !height) return false;
-  if (!Number.isInteger(width) || !Number.isInteger(height)) return false;
-  return (width % Table.cellSize === 0 && height % Table.cellSize === 0);
+function areValidDimension(numCols, numRows) {
+  if (!numCols || !numRows) return false;
+  if (!Number.isInteger(numCols) || !Number.isInteger(numRows)) return false;
+  return true;
 }
 
-function createTable({ width, height }) {
-  if (!areValidDimension(width, height)) return null;
-  return new Table({ width, height });
+function createTable({ numCols, numRows }, { cellSize = Table.defaultCellSize } = {}) {
+  if (!areValidDimension(numCols, numRows)) return null;
+  return new Table({ numCols, numRows }, { cellSize });
 }
 
 export default {

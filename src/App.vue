@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TableItem v-if="table" :table="table" />
+    <TableItem :table="table" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      table: tableService.createTable({ width: 500, height: 500 }),
+      table: tableService.createTable({ numCols: 20, numRows: 20 }),
     };
   },
 
