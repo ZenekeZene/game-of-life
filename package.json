@@ -74,6 +74,10 @@
   ],
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest",
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": ["jest-canvas-mock"],
+    "testMatch": [ 
+      "**/__tests__/**/*.(js|ts|tsx)",
+      "**/?(*.)+(spec|test).(js|ts|tsx)"
+    ]
   }
 }

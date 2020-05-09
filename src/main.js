@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import App from './App.vue';
+import App from './ui/components/App.vue';
 import './registerServiceWorker';
-import store from './store';
+import store from './adapter';
 
 Vue.config.productionTip = false;
 

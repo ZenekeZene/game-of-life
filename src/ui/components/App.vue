@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import TableItem from '@/components/Table.vue';
-import tableService from './services/table.service';
+import TableItem from '@/ui/components/table/Table.vue';
+import tableService from '@/app/createTable';
 
 export default {
   name: 'App',

@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
-import Table from '@/components/Table.vue';
-import tableService from '../../src/services/table.service';
+import Table from '@/ui/components/table/Table.vue';
+import tableService from '@/app/createTable';
 
 const sizeIsCorrect = (table, canvas) =>
   canvas.attributes('width') === table.width.toString() &&

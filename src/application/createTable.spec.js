@@ -1,4 +1,4 @@
-import tableService from '../../src/services/table.service';
+import tableService from '@/app/createTable';
 
 describe('tableService', () => {
   describe('createTable({ numCols, numRows })', () => {
