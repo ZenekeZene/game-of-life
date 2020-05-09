@@ -18,5 +18,5 @@ export default {
   calculateLifeState({ numNeighbors }) {
     const isCellDead = someRulesIsAppliedToDie(rulesToDie, numNeighbors);
     return isCellDead ? LifeState.dead : LifeState.live;
-  }
+  },
 };

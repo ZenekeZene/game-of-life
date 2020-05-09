@@ -16,17 +16,17 @@ const getCanvas = (table) => build(table).find('.canvas');
 
 describe('<Table />', () => {
 
-  it('Given a pair of dimension, should render a canvas correctly', () => {
+  it('Given a pair of dimension, should render a canvas correctly (integration)', () => {
     const table = tableService.createTable({ numCols: 25, numRows: 25 });
     const canvas = getCanvas(table);
-    expect(canvas);
+    expect(canvas.exists()).toBe(true);
     expect(sizeIsCorrect(table, canvas)).toBe(true);
   });
 
-  it('Given a numCols of 10 and size of cell 5, should render a canvas with width = 50', () => {
+  it('Given a numCols of 10 and size of cell 5, should render a canvas with width = 50 (integration)', () => {
     const table = tableService.createTable({ numCols: 10, numRows: 10 }, { cellSize: 5 });
     const canvas = getCanvas(table);
-    expect(canvas);
+    expect(canvas.exists()).toBe(true);
     expect(canvas.attributes('width')).toBe('50');
   });
 
@@ -38,14 +38,23 @@ describe('<Table />', () => {
   });
 
   it('Given a invalid dimension, should not render a canvas', () => {
-    const table = tableService.createTable({ width: 150 });
-    const canvas = getCanvas(table);
+    const dummyTable = null;
+    const canvas = getCanvas(dummyTable);
     expect(canvas.exists()).toBe(false);
   });
 
-  it('It begin with all zeros', async () => {
-    const table = tableService.createTable({ numCols: 3, numRows: 3 });
+  it('It begin with all zeros (integration)', async () => {
+    const table = tableService.createTable({ numCols: 2, numRows: 3 });
     const instance = build(table);
+    expect(instance.vm.cells).toEqual([
+      [0, 0],
+      [0, 0],
+      [0, 0],
+    ]);
+  });
+
+  it('It begin with all zeros', async () => {
+    const instance = build({ numCols: 3, numRows: 3 });
     expect(instance.vm.cells).toEqual([
       [0, 0, 0],
       [0, 0, 0],

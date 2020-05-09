@@ -51,8 +51,8 @@ export default {
       }
     },
     initCells() {
-      for (let i = 0; i < this.table.numCols; i += 1) {
-        this.cells[i] = new Array(this.table.numRows).fill(0);
+      for (let i = 0; i < this.table.numRows; i += 1) {
+        this.cells[i] = new Array(this.table.numCols).fill(0);
       }
     },
   },
