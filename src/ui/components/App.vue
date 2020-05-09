@@ -6,7 +6,7 @@
 
 <script>
 import TableItem from '@/ui/components/table/Table.vue';
-import tableService from '@/app/createTable';
+import { createTable } from '@/application/CreateTable';
 
 export default {
   name: 'App',
@@ -15,10 +15,9 @@ export default {
   },
   data() {
     return {
-      table: tableService.createTable({ numCols: 20, numRows: 20 }),
+      table: createTable({ numCols: 20, numRows: 20 }),
     };
   },
-
 };
 </script>
 

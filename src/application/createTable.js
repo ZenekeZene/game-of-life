@@ -6,11 +6,7 @@ function areValidDimension(numCols, numRows) {
   return true;
 }
 
-function createTable({ numCols, numRows }, { cellSize = Table.defaultCellSize } = {}) {
+export function createTable({ numCols, numRows }, { cellSize = Table.defaultCellSize } = {}) {
   if (!areValidDimension(numCols, numRows)) return null;
   return new Table({ numCols, numRows }, { cellSize });
 }
-
-export default {
-  createTable,
-};

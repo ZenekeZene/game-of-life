@@ -1,5 +1,8 @@
 # game-of-life
 
+## TODO
+[ ] Desacoplar vista de caso de uso (App / CreateTable). Con TDD.
+
 ## Project setup
 ```
 npm install
