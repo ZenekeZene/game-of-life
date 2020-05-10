@@ -5,18 +5,22 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import TableItem from '@/ui/components/table/Table.vue';
-import { createTable } from '@/application/CreateTable';
 
 export default {
   name: 'App',
   components: {
     TableItem,
   },
-  data() {
-    return {
-      table: createTable({ numCols: 20, numRows: 20 }),
-    };
+  computed: {
+    ...mapState(['table']),
+  },
+  methods: {
+    ...mapActions(['createANewTable']),
+  },
+  created() {
+    this.createANewTable();
   },
 };
 </script>
