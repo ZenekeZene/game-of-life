@@ -2,7 +2,7 @@
 
 ## TODO
 [ ] Desacoplar vista de caso de uso (App / CreateTable). Con TDD.
-
+[ ] Factory con Table
 ## Project setup
 ```
 npm install
