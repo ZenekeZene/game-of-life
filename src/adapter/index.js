@@ -15,8 +15,8 @@ export const mutations = {
   },
 };
 export const actions = {
-  createANewTable({ commit }) {
-    const table = createTable({ numCols: 20, numRows: 20 });
+  createANewTable({ commit }, { numCols = 20, numRows = 20}) {
+    const table = createTable({ numCols, numRows });
     commit('setTable', { table });
   },
 };
