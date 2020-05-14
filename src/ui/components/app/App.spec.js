@@ -36,11 +36,4 @@ describe('<App/>', () => {
   });
 
   // TODO: Cómo testar que ha sido llamado con x params?
-
-  // TODO:
-  // Testar en un spec aparte, el de la store:
-  // When createANewTable is dispatched, then setCells is commited
-  /*it('Dispatches setCells when the App is loaded', () => {
-    expect(actions.)
-  })*/
 });

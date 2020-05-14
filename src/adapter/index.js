@@ -10,6 +10,9 @@ const initialState = {
 };
 export const getters = {};
 export const mutations = {
+  setCells(state, { cells }) {
+    state.cells = cells;
+  },
   setTable(state, { table }) {
     state.table = table;
   },
@@ -18,6 +21,7 @@ export const actions = {
   createANewTable({ commit }, { numCols = 20, numRows = 20}) {
     const table = createTable({ numCols, numRows });
     commit('setTable', { table });
+    commit('setCells', { cells: table.totalCells });
   },
 };
 export const modules = {};
