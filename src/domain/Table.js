@@ -1,4 +1,4 @@
-export class Table {
+export default class Table {
   static defaultCellSize = 20;
 
   constructor({ numCols, numRows }, { cellSize }) {

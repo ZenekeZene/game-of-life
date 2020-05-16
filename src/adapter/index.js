@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { createTable } from '@/application/CreateTable';
+import createTable from '@/application/createTable';
+import calculateCellLife from '@/application/calculateCellLife';
 
 Vue.use(Vuex);
 
@@ -18,10 +19,13 @@ export const mutations = {
   },
 };
 export const actions = {
-  createANewTable({ commit }, { numCols = 20, numRows = 20}) {
+  createANewTable({ commit }, { numCols, numRows }) {
     const table = createTable({ numCols, numRows });
     commit('setTable', { table });
     commit('setCells', { cells: table.totalCells });
+  },
+  calculateCellLife() {
+    return calculateCellLife();
   },
 };
 export const modules = {};

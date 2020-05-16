@@ -1,4 +1,4 @@
-import { Table } from '@/domain/Table';
+import Table from '@/domain/table';
 
 function areValidDimension(numCols, numRows) {
   if (!numCols || !numRows) return false;
@@ -6,7 +6,10 @@ function areValidDimension(numCols, numRows) {
   return true;
 }
 
-export function createTable({ numCols, numRows }, { cellSize = Table.defaultCellSize } = {}) {
+export default function createTable(
+  { numCols, numRows },
+  { cellSize = Table.defaultCellSize } = {},
+) {
   if (!areValidDimension(numCols, numRows)) return null;
   return new Table({ numCols, numRows }, { cellSize });
 }

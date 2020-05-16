@@ -1,4 +1,4 @@
-import { createTable } from '@/application/CreateTable';
+import createTable from '@/application/createTable';
 
 describe('Create table (use case)', () => {
   describe('createTable({ numCols, numRows })', () => {

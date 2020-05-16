@@ -1,4 +1,4 @@
-import Rules, { LifeState } from '@/domain/rules/Rules';
+import Rules, { LifeState } from '@/domain/rules/rules';
 
 describe('rulesService', () => {
   it('A dead cell with 3 living neighbors nearby, lives', () => {

@@ -8,6 +8,7 @@
       :height=table.height
     ></canvas>
     <p v-else>No se ha podido cargar el canvas</p>
+    <button @click="handFake">HandFake</button>
   </section>
 </template>
 <script>
@@ -25,6 +26,15 @@ export default {
       ctx: null,
       cells: [],
     };
+  },
+  watch: {
+    cells: {
+      deep: true,
+      immediate: true,
+      handler(value) {
+        console.log(value);
+      },
+    },
   },
   mounted() {
     const { canvas } = this.$refs;
@@ -52,8 +62,11 @@ export default {
     },
     initCells() {
       for (let i = 0; i < this.table.numRows; i += 1) {
-        this.cells[i] = new Array(this.table.numCols).fill(0);
+        this.cells.push(new Array(this.table.numCols).fill(0));
       }
+    },
+    handFake() {
+      this.cells[0].splice(0, 1, 1);
     },
   },
 };
