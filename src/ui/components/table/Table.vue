@@ -18,17 +18,17 @@
       @mousedown="mousedown"
       @mouseup="mouseup"
     >
-      <div v-for="(cellRow, index2) in cells" :key="`cell-${index2}`">
+      <template v-for="(cellRow, rowIndex) in cells">
         <Cell
-          v-for="(cell, index) in cellRow"
-          :key="`cell-${index}`"
-          :top="top(index)"
-          :left="left(index2)"
+          v-for="(cell, cellIndex) in cellRow"
+          :key="`cell-${rowIndex}-${cellIndex}`"
+          :top="top(cellIndex)"
+          :left="left(rowIndex)"
           :width="table.cellSize"
           :height="table.cellSize"
           :isPressing="isPressing"
         />
-      </div>
+      </template>
     </div>
     <p v-else>No se ha podido cargar el canvas</p>
   </section>

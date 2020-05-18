@@ -64,6 +64,6 @@ export default {
   .cell {
     position: absolute;
     display: inline-block;
-    border: 1px solid #333333;
+    box-shadow: inset 1px 1px #333333;
   }
 </style>
