@@ -26,7 +26,10 @@
           :x="colIndex"
           :y="rowIndex"
           :size="table.cellSize"
+          :countGenerations="countGenerations"
+          :isRunning="isRunning"
           :isPressing="isPressing"
+          :trailIsEnabled="trailIsEnabled"
           @update:state="updateState"
         />
       </template>
@@ -60,7 +63,9 @@ export default {
       cells: this.initCells(),
       isPressing: false,
       timer: null,
-      interval: 1000
+      interval: 4,
+      countGenerations: 0,
+      trailIsEnabled: false,
     };
   },
   watch: {
@@ -122,6 +127,7 @@ export default {
           this.$set(this.cells[x], y, cellsNew[x][y]);
         }
       }
+      this.countGenerations += 1;
     },
     updateState({ i, j, state }) {
       this.cells[i].splice(j, 1, state);

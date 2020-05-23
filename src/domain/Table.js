@@ -1,5 +1,5 @@
 export default class Table {
-  static defaultCellSize = 40;
+  static defaultCellSize = 10;
 
   constructor({ numCols, numRows }, { cellSize }) {
     this.width = numCols * cellSize;

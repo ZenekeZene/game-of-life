@@ -26,7 +26,7 @@ export default {
     ...mapActions(['createANewTable']),
   },
   created() {
-    this.createANewTable({ numCols: 10, numRows: 10 });
+    this.createANewTable({ numCols: 50, numRows: 50 });
   },
 };
 </script>
