@@ -47,7 +47,10 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "prefer-default-export": "off"
+      "prefer-default-export": "off",
+      "comma-dangle": "off",
+      "no-console": "off",
+      "no-unused-vars": "off"
     },
     "overrides": [
       {

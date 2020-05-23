@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TableItem :table="table" />
+    <TableItem :table="table" :isRunning="isRunning" />
     <button @click="isRunning = !isRunning">{{ isRunning ? 'Stop': 'Play' }}</button>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     ...mapActions(['createANewTable']),
   },
   created() {
-    this.createANewTable({ numCols: 3, numRows: 3 });
+    this.createANewTable({ numCols: 10, numRows: 10 });
   },
 };
 </script>
