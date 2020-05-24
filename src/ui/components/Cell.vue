@@ -110,7 +110,7 @@ export default {
     getOpacity() {
       if (this.trail) {
         const op = 1 - this.trailCount * (this.trailLengthGenerations * 0.1);
-        return op > 0 ? `rgba(255,192,203, ${op})` : this.colors.dead;
+        return op > 0 ? `rgba(100,0,80, ${op})` : this.colors.dead;
       }
       return this.colors.trail;
     },
