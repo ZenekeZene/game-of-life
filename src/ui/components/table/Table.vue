@@ -24,14 +24,12 @@
   </section>
 </template>
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'TableItem',
-  props: {
-    table: {
-      type: Object,
-      default: () => {},
-    },
+  computed: {
+    ...mapState(['table']),
   },
   data() {
     return {

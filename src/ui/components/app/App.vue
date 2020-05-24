@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <TableItem :table="table" :isRunning="isRunning">
+    <TableItem :isRunning="isRunning">
       <TheGear
+        v-if="table"
         :numCols="table.numCols"
         :numRows="table.numRows"
         :cellSize="table.cellSize"
         :isRunning="isRunning"
+        :cellsInput="cells"
       />
     </TableItem>
     <button @click="isRunning = !isRunning">{{ isRunning ? 'Pause': 'Play' }}</button>
@@ -29,15 +31,30 @@ export default {
   },
   data() {
     return {
+      dimension: { numCols: 50, numRows: 50 },
       isRunning: false,
+      cells: [],
     };
   },
   methods: {
     ...mapActions(['createANewTable']),
-    handClear() {}
+    initCells({ numCols, numRows }) {
+      const cells = [];
+      for (let i = 0; i < numCols; i += 1) {
+        cells.push([]);
+        for (let j = 0; j < numRows; j += 1) {
+          cells[i][j] = 0;
+        }
+      }
+      return cells;
+    },
+    handClear() {
+      this.cells = this.initCells(this.dimension);
+    }
   },
-  created() {
-    this.createANewTable({ numCols: 50, numRows: 50 });
+  async mounted() {
+    await this.createANewTable(this.dimension);
+    this.cells = this.initCells(this.dimension);
   },
 };
 </script>

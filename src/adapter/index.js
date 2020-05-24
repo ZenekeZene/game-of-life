@@ -20,9 +20,12 @@ export const mutations = {
 };
 export const actions = {
   createANewTable({ commit }, { numCols, numRows }) {
-    const table = createTable({ numCols, numRows });
-    commit('setTable', { table });
-    commit('setCells', { cells: table.totalCells });
+    return new Promise((resolve) => {
+      const table = createTable({ numCols, numRows });
+      commit('setTable', { table });
+      commit('setCells', { cells: table.totalCells });
+      resolve();
+    });
   },
   calculateCellLife() {
     return calculateCellLife();

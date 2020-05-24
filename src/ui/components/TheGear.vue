@@ -11,7 +11,7 @@
         :countGenerations="countGenerations"
         :isRunning="isRunning"
         :isPressing="isPressing"
-        :trailIsEnabled="trailIsEnabled"
+        :trailIsEnabled="false"
         @update:state="updateState"
       />
     </template>
@@ -48,17 +48,24 @@ export default {
     isPressing: {
       type: Boolean,
       default: false,
+    },
+    cellsInput: {
+      type: Array,
+      required: true
     }
   },
   watch: {
     isRunning(value) {
       const timerMethod = value ? this.timer.resume : this.timer.pause;
       timerMethod();
+    },
+    cellsInput(value) {
+      this.cells = value;
     }
   },
   data() {
     return {
-      cells: this.initCells(),
+      cells: [...this.cellsInput],
       timer: null,
       interval: 1,
       countGenerations: 0,
@@ -69,16 +76,6 @@ export default {
     this.loopGame();
   },
   methods: {
-    initCells() {
-      const cells = [];
-      for (let i = 0; i < this.numCols; i += 1) {
-        cells.push([]);
-        for (let j = 0; j < this.numRows; j += 1) {
-          cells[i][j] = 0;
-        }
-      }
-      return cells;
-    },
     loopGame() {
       this.setInterval(() => {
         if (this.isRunning) {
@@ -100,7 +97,13 @@ export default {
     },
     doGeneration() {
       const cellsOld = [...this.cells];
-      const cellsNew = this.initCells();
+      const cellsNew = [];
+      for (let i = 0; i < this.numCols; i += 1) {
+        cellsNew.push([]);
+        for (let j = 0; j < this.numRows; j += 1) {
+          cellsNew[i][j] = 0;
+        }
+      }
       this.loopCells((x, y) => {
         const numNeighbors = howManyNeighborsAlive(x, y, cellsOld);
         this.debug(x, y, numNeighbors, cellsOld);
