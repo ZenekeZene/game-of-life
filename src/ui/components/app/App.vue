@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      dimension: { numCols: 50, numRows: 50 },
+      dimension: { numCols: 10, numRows: 10 },
       isRunning: false,
       cells: [],
     };

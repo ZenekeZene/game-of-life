@@ -7,7 +7,7 @@
       'width': `${width}px`,
       'height': `${height}px`,
       'backgroundColor': getColor,
-      'opacity': getOpacity
+      'opacity': getOpacityTrail
     }"
     @mouseover="handLive"
     @click="handClickLive"
@@ -40,7 +40,7 @@ export default {
     getColor() {
       if (this.state === LifeState.dead) {
         if (this.trail && this.trailIsEnabled) {
-          return this.getOpacity();
+          return this.getOpacityTrail();
         }
         return this.colors.dead;
       }
@@ -107,10 +107,10 @@ export default {
     }
   },
   methods: {
-    getOpacity() {
+    getOpacityTrail() {
       if (this.trail) {
-        const op = 1 - this.trailCount * (this.trailLengthGenerations * 0.1);
-        return op > 0 ? `rgba(100,0,80, ${op})` : this.colors.dead;
+        const op = 1 - (this.trailCount * 0.1);
+        return op > 0 ? `rgba(100, 0, 80, ${op})` : this.colors.dead;
       }
       return this.colors.trail;
     },

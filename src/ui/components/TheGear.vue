@@ -11,7 +11,7 @@
         :countGenerations="countGenerations"
         :isRunning="isRunning"
         :isPressing="isPressing"
-        :trailIsEnabled="false"
+        :trailIsEnabled="trailIsEnabled"
         @update:state="updateState"
       />
     </template>
