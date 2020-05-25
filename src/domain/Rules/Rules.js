@@ -15,10 +15,8 @@ const rulesToDie = [isDeadByIsolation, idDeadByOverPopulation];
 const someRulesIsAppliedToDie = (rules, param) => rules.some((rule) => rule(param));
 
 export default function calculateLifeState(numNeighbors, state) {
-  // const isCellDead = someRulesIsAppliedToDie(rulesToDie, numNeighbors);
-  if (numNeighbors === 3) return LifeState.live;
-  if (state === 1 && numNeighbors === 2) return LifeState.live;
-  if (state === 1 && (numNeighbors < 2 || numNeighbors > 3)) return LifeState.dead;
-  // return isCellDead ? LifeState.dead : LifeState.live;
+  if (numNeighbors === maxByOverPopulation) return LifeState.live;
+  if (state === LifeState.live && numNeighbors === minByIsolation) return LifeState.live;
+  if (state === LifeState.live && someRulesIsAppliedToDie(rulesToDie, numNeighbors)) return LifeState.dead;
   return LifeState.dead;
 }
