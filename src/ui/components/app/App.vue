@@ -5,6 +5,8 @@
         v-if="table"
         :numCols="table.numCols"
         :numRows="table.numRows"
+        :width="table.width"
+        :height="table.height"
         :cellSize="table.cellSize"
         :isRunning="isRunning"
         :cellsInput="cells"
@@ -46,13 +48,15 @@ export default {
           cells[i][j] = 0;
         }
       }
+      cells[1][2] = 1;
+      console.log(cells);
       return cells;
     },
     handClear() {
       this.cells = this.initCells(this.dimension);
     }
   },
-  async mounted() {
+  async created() {
     await this.createANewTable(this.dimension);
     this.cells = this.initCells(this.dimension);
   },

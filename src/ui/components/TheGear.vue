@@ -1,6 +1,12 @@
 <template>
   <div>
-    <template v-for="(cellCol, colIndex) in cells">
+    <canvas
+      ref="canvas"
+      class="canvas"
+      :width=width
+      :height=height
+    ></canvas>
+    <!--<template v-for="(cellCol, colIndex) in cells">
       <Cell
         v-for="(cell, rowIndex) in cellCol"
         :key="`cell-${colIndex}-${rowIndex}`"
@@ -14,11 +20,12 @@
         :trailIsEnabled="trailIsEnabled"
         @update:state="updateState"
       />
-    </template>
+    </template>-->
   </div>
 </template>
 <script>
-import Cell from '@/ui/components/Cell.vue';
+import { mapState } from 'vuex';
+// import Cell from '@/ui/components/Cell.vue';
 import calculateCellLife from '@/application/calculateCellLife';
 import IntervalTimer from '@/application/IntervalTimer';
 import howManyNeighborsAlive from '@/application/countNumNeighborsAlive';
@@ -26,9 +33,17 @@ import howManyNeighborsAlive from '@/application/countNumNeighborsAlive';
 export default {
   name: 'TheGear',
   components: {
-    Cell
+    // Cell
   },
   props: {
+    width: {
+      type: Number,
+      default: 0,
+    },
+    height: {
+      type: Number,
+      default: 0,
+    },
     numCols: {
       type: Number,
       default: 0,
@@ -54,6 +69,9 @@ export default {
       required: true
     }
   },
+  computed: {
+    ...mapState(['table']),
+  },
   watch: {
     isRunning(value) {
       const timerMethod = value ? this.timer.resume : this.timer.pause;
@@ -73,14 +91,36 @@ export default {
     };
   },
   mounted() {
+    const { canvas } = this.$refs;
+    if (!canvas) return;
+    this.fillBackground(canvas);
     this.loopGame();
+    setTimeout(() => {
+      this.drawCells();
+    });
+    console.log(this.cells);
   },
   methods: {
+    fillBackground(canvas) {
+      this.ctx = canvas.getContext('2d');
+      if (!this.ctx) return;
+      this.ctx.fillStyle = '#000000';
+      this.ctx.fillRect(0, 0, this.table.width, this.table.height);
+    },
     loopGame() {
       this.setInterval(() => {
         if (this.isRunning) {
           this.doGeneration();
         }
+      });
+    },
+    drawCells() {
+      this.loopCells((x, y) => {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = 'white';
+        this.ctx.fillStyle = this.cells[x][y] === 1 ? 'white' : 'black';
+        this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        this.ctx.stroke();
       });
     },
     setInterval(callback) {
