@@ -74,6 +74,7 @@ export default {
   },
   watch: {
     isRunning(value) {
+      console.log(value);
       const timerMethod = value ? this.timer.resume : this.timer.pause;
       timerMethod();
     },
@@ -85,7 +86,7 @@ export default {
     return {
       cells: [...this.cellsInput],
       timer: null,
-      interval: 1,
+      interval: 1000,
       countGenerations: 0,
       trailIsEnabled: true,
     };
@@ -136,6 +137,7 @@ export default {
       }
     },
     doGeneration() {
+      console.log('doGeneration');
       const cellsOld = [...this.cells];
       const cellsNew = [];
       for (let i = 0; i < this.numCols; i += 1) {
@@ -146,14 +148,16 @@ export default {
       }
       this.loopCells((x, y) => {
         const numNeighbors = howManyNeighborsAlive(x, y, cellsOld);
-        this.debug(x, y, numNeighbors, cellsOld);
+        // this.debug(x, y, numNeighbors, cellsOld);
         const newState = calculateCellLife(numNeighbors, cellsOld[x][y]);
         cellsNew[x][y] = newState;
       });
       this.loopCells((x, y) => {
         this.$set(this.cells[x], y, cellsNew[x][y]);
       });
+      console.log(cellsNew);
       this.countGenerations += 1;
+      this.drawCells();
     },
     debug(x, y, numNeighbors, cellsOld) {
       return `${x}, ${y},

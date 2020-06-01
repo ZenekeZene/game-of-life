@@ -48,7 +48,11 @@ export default {
           cells[i][j] = 0;
         }
       }
-      cells[1][2] = 1;
+      cells[1][3] = 1;
+      cells[2][3] = 1;
+      cells[3][4] = 1;
+      cells[2][4] = 1;
+      cells[2][5] = 1;
       console.log(cells);
       return cells;
     },
