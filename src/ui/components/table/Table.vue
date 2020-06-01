@@ -19,10 +19,6 @@ export default {
 };
 </script>
 <style lang="scss">
-  .canvas {
-    position: absolute;
-  }
-
   .container {
     position: relative;
     display: inline-block;

@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      dimension: { numCols: 10, numRows: 10 },
+      dimension: { numCols: 100, numRows: 100 },
       isRunning: false,
       cells: [],
     };
@@ -48,11 +48,11 @@ export default {
           cells[i][j] = 0;
         }
       }
-      cells[1][3] = 1;
-      cells[2][3] = 1;
-      cells[3][4] = 1;
-      cells[2][4] = 1;
-      cells[2][5] = 1;
+      cells[51][53] = 1;
+      cells[52][53] = 1;
+      cells[53][54] = 1;
+      cells[52][54] = 1;
+      cells[52][55] = 1;
       console.log(cells);
       return cells;
     },

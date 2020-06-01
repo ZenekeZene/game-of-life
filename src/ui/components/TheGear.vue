@@ -86,7 +86,7 @@ export default {
     return {
       cells: [...this.cellsInput],
       timer: null,
-      interval: 1000,
+      interval: 0.02,
       countGenerations: 0,
       trailIsEnabled: true,
     };
@@ -99,7 +99,7 @@ export default {
     setTimeout(() => {
       this.drawCells();
     });
-    console.log(this.cells);
+    // console.log(this.cells);
   },
   methods: {
     fillBackground(canvas) {
@@ -137,32 +137,31 @@ export default {
       }
     },
     doGeneration() {
-      console.log('doGeneration');
       const cellsOld = [...this.cells];
       const cellsNew = [];
+      // Reset:
       for (let i = 0; i < this.numCols; i += 1) {
         cellsNew.push([]);
         for (let j = 0; j < this.numRows; j += 1) {
           cellsNew[i][j] = 0;
         }
       }
+      // Calculate generation:
       this.loopCells((x, y) => {
         const numNeighbors = howManyNeighborsAlive(x, y, cellsOld);
-        // this.debug(x, y, numNeighbors, cellsOld);
+        // sconsole.log(this.debug(x, y, numNeighbors, cellsOld));
         const newState = calculateCellLife(numNeighbors, cellsOld[x][y]);
         cellsNew[x][y] = newState;
       });
+      // Set to cells:
       this.loopCells((x, y) => {
         this.$set(this.cells[x], y, cellsNew[x][y]);
       });
-      console.log(cellsNew);
       this.countGenerations += 1;
       this.drawCells();
     },
     debug(x, y, numNeighbors, cellsOld) {
-      return `${x}, ${y},
-        old ${cellsOld[x][y]},
-        v(${numNeighbors}) => ${calculateCellLife(numNeighbors, cellsOld[x][y])}`;
+      return `[${x},${y}], old ${cellsOld[x][y]}, v(${numNeighbors}) => ${calculateCellLife(numNeighbors, cellsOld[x][y])}`;
     },
     updateState({ i, j, state }) {
       this.cells[i].splice(j, 1, state);
