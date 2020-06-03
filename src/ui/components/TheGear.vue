@@ -6,35 +6,16 @@
       :width=width
       :height=height
     ></canvas>
-    <!--<template v-for="(cellCol, colIndex) in cells">
-      <Cell
-        v-for="(cell, rowIndex) in cellCol"
-        :key="`cell-${colIndex}-${rowIndex}`"
-        :state="cell"
-        :x="colIndex"
-        :y="rowIndex"
-        :size="cellSize"
-        :countGenerations="countGenerations"
-        :isRunning="isRunning"
-        :isPressing="isPressing"
-        :trailIsEnabled="trailIsEnabled"
-        @update:state="updateState"
-      />
-    </template>-->
   </div>
 </template>
 <script>
 import { mapState } from 'vuex';
-// import Cell from '@/ui/components/Cell.vue';
 import calculateCellLife from '@/application/calculateCellLife';
 import IntervalTimer from '@/application/IntervalTimer';
 import howManyNeighborsAlive from '@/application/countNumNeighborsAlive';
 
 export default {
   name: 'TheGear',
-  components: {
-    // Cell
-  },
   props: {
     width: {
       type: Number,
@@ -67,6 +48,10 @@ export default {
     cellsInput: {
       type: Array,
       required: true
+    },
+    interval: {
+      type: Number,
+      default: 0.02,
     }
   },
   computed: {
@@ -74,9 +59,13 @@ export default {
   },
   watch: {
     isRunning(value) {
-      console.log(value);
       const timerMethod = value ? this.timer.resume : this.timer.pause;
       timerMethod();
+    },
+    interval(value) {
+      this.timer.interval = value;
+      this.timer.pause();
+      this.timer.resume();
     },
     cellsInput(value) {
       this.cells = value;
@@ -84,9 +73,8 @@ export default {
   },
   data() {
     return {
-      cells: [...this.cellsInput],
+      cells: [],
       timer: null,
-      interval: 0.02,
       countGenerations: 0,
       trailIsEnabled: true,
     };
@@ -94,12 +82,10 @@ export default {
   mounted() {
     const { canvas } = this.$refs;
     if (!canvas) return;
+    this.cells = [...this.cellsInput];
     this.fillBackground(canvas);
     this.loopGame();
-    setTimeout(() => {
-      this.drawCells();
-    });
-    // console.log(this.cells);
+    this.drawCells();
   },
   methods: {
     fillBackground(canvas) {
@@ -149,7 +135,6 @@ export default {
       // Calculate generation:
       this.loopCells((x, y) => {
         const numNeighbors = howManyNeighborsAlive(x, y, cellsOld);
-        // sconsole.log(this.debug(x, y, numNeighbors, cellsOld));
         const newState = calculateCellLife(numNeighbors, cellsOld[x][y]);
         cellsNew[x][y] = newState;
       });

@@ -1,13 +1,14 @@
-export default function IntervalTimer(callback, interval) {
+export default function IntervalTimer(callback, intervalInitial) {
   let timerId = 0;
   let startTime = 0;
   let remaining = 0;
   let state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+  this.interval = intervalInitial;
 
   this.pause = () => {
     if (state !== 1) return;
 
-    remaining = interval - (new Date() - startTime);
+    remaining = this.interval - (new Date() - startTime);
     window.clearInterval(timerId);
     state = 2;
   };
@@ -25,11 +26,11 @@ export default function IntervalTimer(callback, interval) {
     callback();
 
     startTime = new Date();
-    timerId = window.setInterval(callback, interval);
+    timerId = window.setInterval(callback, this.interval);
     state = 1;
   };
 
   startTime = new Date();
-  timerId = window.setInterval(callback, interval);
+  timerId = window.setInterval(callback, this.interval);
   state = 1;
 }
