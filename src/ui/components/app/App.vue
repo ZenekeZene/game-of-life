@@ -14,7 +14,10 @@
       />
     </TableItem>
     <div class="tools">
-      <input v-model.number="interval" type="range" min="0.02" max="200" value="0.02">
+      <div class="control">
+        <span>Speed:</span>
+        <input v-model.number="interval" type="range" min="0.02" max="200" value="0.02">
+      </div>
       <div class="control">
         <button color-primary
           @click="isRunning = !isRunning">{{ isRunning ? 'Pause': 'Play' }}</button>
