@@ -14,7 +14,7 @@
     "core-js": "^3.6.4",
     "flush-promises": "^1.0.2",
     "register-service-worker": "^1.7.1",
-    "vue": "^2.6.11",
+    "vue": "^3.0.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
